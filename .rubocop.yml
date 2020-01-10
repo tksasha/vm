@@ -1,0 +1,19 @@
+require:
+  - rubocop-performance
+  - rubocop-rspec
+
+AllCops:
+  Exclude:
+    - spec/spec_helper.rb
+
+Style/Documentation:
+  Enabled: false
+
+Layout/SpaceInsideStringInterpolation:
+  EnforcedStyle: space
+
+RSpec/ImplicitExpect:
+  EnforcedStyle: should
+
+RSpec/MissingExampleGroupArgument:
+  Enabled: false
