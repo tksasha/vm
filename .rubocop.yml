@@ -12,8 +12,21 @@ Style/Documentation:
 Layout/SpaceInsideStringInterpolation:
   EnforcedStyle: space
 
+Layout/LineLength:
+  Max: 120
+
 RSpec/ImplicitExpect:
   EnforcedStyle: should
 
 RSpec/MissingExampleGroupArgument:
+  Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+  - spec/**/*
+
+RSpec/NamedSubject:
+  Enabled: false
+
+RSpec/ScatteredSetup:
   Enabled: false
