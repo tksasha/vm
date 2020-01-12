@@ -18,6 +18,7 @@ GEM
     colorize (0.8.1)
     concurrent-ruby (1.1.5)
     diff-lcs (1.3)
+    equatable (0.6.1)
     fasterer (0.8.1)
       colorize (~> 0.7)
       ruby_parser (>= 3.14.1)
@@ -25,9 +26,13 @@ GEM
       concurrent-ruby (~> 1.0)
     jaro_winkler (1.5.4)
     minitest (5.14.0)
+    necromancer (0.5.1)
     parallel (1.19.1)
     parser (2.7.0.2)
       ast (~> 2.4.0)
+    pastel (0.7.3)
+      equatable (~> 0.6)
+      tty-color (~> 0.5)
     rainbow (3.0.0)
     rspec-core (3.9.1)
       rspec-support (~> 3.9.1)
@@ -60,9 +65,21 @@ GEM
       activesupport (>= 4.2.0)
     thor (0.20.3)
     thread_safe (0.3.6)
+    tty-color (0.5.0)
+    tty-cursor (0.7.0)
+    tty-prompt (0.20.0)
+      necromancer (~> 0.5.0)
+      pastel (~> 0.7.0)
+      tty-reader (~> 0.7.0)
+    tty-reader (0.7.0)
+      tty-cursor (~> 0.7)
+      tty-screen (~> 0.7)
+      wisper (~> 2.0.0)
+    tty-screen (0.7.0)
     tzinfo (1.2.6)
       thread_safe (~> 0.1)
     unicode-display_width (1.6.0)
+    wisper (2.0.1)
     zeitwerk (2.2.2)
 
 PLATFORMS
@@ -79,6 +96,7 @@ DEPENDENCIES
   rubocop-performance
   rubocop-rspec
   shoulda-matchers
+  tty-prompt
 
 BUNDLED WITH
    2.1.2

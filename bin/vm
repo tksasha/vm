@@ -1,0 +1,40 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'tty-prompt'
+
+require_relative '../config/application'
+
+prompt = TTY::Prompt.new
+
+loop do
+  id = prompt.select 'Select your Product' do |menu|
+    Product.all.each do |product|
+      menu.choice product['name'], product['id']
+    end
+  end
+
+  product = Product.find id
+
+  price = product['price']
+
+  coins = 0
+
+  while coins < price
+    coin = prompt.select "Please insert #{ price - coins } coins" do |menu|
+      Coin.all.keys.each do |coin|
+        menu.choice coin, coin
+      end
+    end
+
+    coins += coin
+  end
+
+  puts "Price: #{ price }"
+
+  puts "Coins: #{ coins }"
+
+  puts "Change: #{ ChangeService.calculate coins - price }"
+
+  break if prompt.no? 'Do you want to continue?'
+end

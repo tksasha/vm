@@ -2,6 +2,8 @@
 
 source 'https://rubygems.org'
 
+gem 'tty-prompt'
+
 group :development do
   gem 'brakeman', require: false
   gem 'bundler-audit', require: false

@@ -1,0 +1,10 @@
+- 
+  id: 1
+  name: 'Beer'
+  price: 125
+  quantity: 5
+- 
+  id: 2
+  name: 'Chips'
+  price: 75
+  quantity: 5

@@ -1,15 +1,9 @@
 # frozen_string_literal: true
 
-require 'yaml'
-
-class Coin
-  DATABASE = 'db/coins.yml'
+class Coin < ApplicationModel
+  self.database = 'db/coins.yml'
 
   class << self
-    def all
-      @all ||= YAML.safe_load File.read DATABASE
-    end
-
     def available
       all.select { |_, value| value.positive? }
     end

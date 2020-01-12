@@ -3,17 +3,7 @@
 RSpec.describe Coin do
   subject { described_class }
 
-  describe '.all' do
-    its :all do
-      should eq 500 => 5, 200 => 5, 100 => 5, 50 => 5, 25 => 5
-    end
-
-    context do
-      before { subject.instance_variable_set :@all, 500 => 1 }
-
-      its(:all) { should eq 500 => 1 }
-    end
-  end
+  its(:database) { should eq 'db/coins.yml' }
 
   describe '.available' do
     before { subject.instance_variable_set :@all, 500 => 0, 200 => 1, 100 => 2, 50 => 3, 25 => 4 }

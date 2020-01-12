@@ -44,4 +44,17 @@ RSpec.describe ChangeService do
       it { expect { subject.calculate }.to raise_error InsufficientCoinsError }
     end
   end
+
+  describe '.calculate' do
+    after { described_class.calculate 58 }
+
+    it do
+      #
+      # described_class.new(58).calculate
+      #
+      expect(described_class).to receive(:new).with(58) do
+        double.tap { |a| expect(a).to receive(:calculate) }
+      end
+    end
+  end
 end

@@ -30,4 +30,10 @@ class ChangeService
     result
   end
   # rubocop:enable Metrics/MethodLength
+
+  class << self
+    def calculate(*args)
+      new(*args).calculate
+    end
+  end
 end
