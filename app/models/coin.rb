@@ -28,6 +28,16 @@ class Coin
       all[coin] = quantity(coin) - 1
     end
 
+    def sum(value)
+      all
+        .select { |coin, _| coin <= value }
+        .sum { |coin, quantity| coin * quantity }
+    end
+
+    def sufficient?(value)
+      sum(value) >= value
+    end
+
     private
 
     def quantity(coin)

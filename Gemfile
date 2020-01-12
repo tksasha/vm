@@ -14,5 +14,6 @@ end
 
 group :test do
   gem 'rspec-its'
+  gem 'rspec-mocks'
   gem 'shoulda-matchers'
 end

@@ -30,3 +30,12 @@ RSpec/NamedSubject:
 
 RSpec/ScatteredSetup:
   Enabled: false
+
+RSpec/ExpectInHook:
+  Enabled: false
+
+RSpec/MessageSpies:
+  EnforcedStyle: receive
+
+RSpec/LeadingSubject:
+  Enabled: false

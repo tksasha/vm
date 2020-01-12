@@ -80,4 +80,20 @@ RSpec.describe Coin do
       its(:all) { should eq 500 => 0 }
     end
   end
+
+  describe '.sum' do
+    before { subject.instance_variable_set :@all, 500 => 5, 200 => 2, 100 => 1, 50 => 0, 25 => 1 }
+
+    it { expect(subject.sum(5000)).to eq 3025 }
+
+    it { expect(subject.sum(100)).to eq 125 }
+  end
+
+  describe '#sufficient?' do
+    before { subject.instance_variable_set :@all, 500 => 5, 200 => 5, 100 => 5, 50 => 5, 25 => 5 }
+
+    it { expect(described_class.sufficient?(4375)).to eq true }
+
+    it { expect(described_class.sufficient?(4400)).to eq false }
+  end
 end
