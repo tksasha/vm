@@ -5,13 +5,7 @@ require 'yaml'
 # TODO: spec me
 class ApplicationModel
   class << self
-    def database
-      @database
-    end
-
-    def database=(database)
-      @database = database
-    end
+    attr_accessor :database
 
     def all
       @all ||= YAML.safe_load File.read database

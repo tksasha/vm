@@ -39,3 +39,6 @@ RSpec/MessageSpies:
 
 RSpec/LeadingSubject:
   Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false

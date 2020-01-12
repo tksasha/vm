@@ -5,7 +5,7 @@ class Product < ApplicationModel
 
   class << self
     def find(id)
-      all.select { |product| product['id'] == id }.first || raise(ProductNotFoundError)
+      all.find { |product| product['id'] == id } || raise(ProductNotFoundError)
     end
 
     def pop(id)

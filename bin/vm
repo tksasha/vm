@@ -21,13 +21,13 @@ loop do
   coins = 0
 
   while coins < price
-    coin = prompt.select "Please insert #{ price - coins } coins" do |menu|
+    value = prompt.select "Please insert #{ price - coins } coins" do |menu|
       Coin.all.keys.each do |coin|
         menu.choice coin, coin
       end
     end
 
-    coins += coin
+    coins += value
   end
 
   puts "Price: #{ price }"
