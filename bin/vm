@@ -9,7 +9,6 @@ prompt = TTY::Prompt.new
 
 pastel = Pastel.new
 
-# rubocop:disable Metrics/BlockLength
 loop do
   id = SelectProductMenu.render
 
@@ -17,47 +16,35 @@ loop do
 
   price = product['price']
 
-  coins = 0
+  total_inserted_coins = 0
 
-  koins = Hash.new(0)
+  inserted_coins = Hash.new(0)
 
-  while coins < price
-    koin = InsertCoinsMenu.render(price, coins)
+  while total_inserted_coins < price
+    koin = InsertCoinsMenu.render(price, total_inserted_coins)
 
-    koins[koin] += 1
+    inserted_coins[koin] += 1
 
-    coins += koin
+    total_inserted_coins += koin
   end
 
   Product.pop id
 
-  print "\n"
-  puts pastel.bold.black 'DEBUG:'
-  puts pastel.bold '------'
-  puts "Price: #{ pastel.bold price }"
-  puts "Coins: #{ pastel.bold coins }"
-
   begin
+    print "\n"
     puts pastel.bold 'Change:'
-    puts ChangeService.calculate coins - price
+    puts ChangeService.calculate total_inserted_coins - price
 
-    koins.each do |coin, quantity|
+    inserted_coins.each do |coin, quantity|
       quantity.times { Coin.push coin }
     end
   rescue InsufficientCoinsError
     Product.push id
 
-    puts pastel.bold.red "Sorry, but we don't have sufficient coins to change."
+    puts pastel.bold.red "Sorry, but we don't have sufficient total_inserted_coins to change."
   end
 
-  puts pastel.bold 'Products in the storage:'
-  puts Product.all
-  puts pastel.bold 'Coins in the storage:'
-  puts Coin.all
-  puts pastel.bold 'Koins:'
-  puts koins
-  puts pastel.bold '------'
+  DebugInfoService.render(price, total_inserted_coins, inserted_coins)
 
   break if prompt.no? 'Do you want to continue?'
 end
-# rubocop:enable Metrics/BlockLength
