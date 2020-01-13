@@ -10,9 +10,9 @@ prompt = TTY::Prompt.new
 pastel = Pastel.new
 
 loop do
-  id = SelectProductMenu.render
+  product_id = SelectProductMenu.render
 
-  product = Product.find id
+  product = Product.find product_id
 
   price = product['price']
 
@@ -28,18 +28,14 @@ loop do
     total_inserted_coins += coin
   end
 
-  Product.pop id
-
   begin
     print "\n"
     puts pastel.bold 'Change:'
     puts ChangeService.calculate total_inserted_coins - price
 
-    PutCoinsToTheStorageService.execute inserted_coins
+    PurchaseService.success(product_id, inserted_coins)
   rescue InsufficientCoinsError
-    Product.push id
-
-    puts pastel.bold.red "Sorry, but we don't have sufficient total_inserted_coins to change."
+    PurchaseService.failure product_id
   end
 
   DebugInfoService.render(price, total_inserted_coins, inserted_coins)
