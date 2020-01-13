@@ -5,7 +5,9 @@ RSpec.describe Product do
 
   let(:chips) { { 'id' => 2, 'name' => 'Chips', 'price' => 125, 'quantity' => 5 } }
 
-  let(:products) { [beer, chips] }
+  let(:candy) { { 'id' => 3, 'name' => 'Candy', 'price' => 25, 'quantity' => 0 } }
+
+  let(:products) { [beer, chips, candy] }
 
   before { described_class.instance_variable_set :@all, products }
 
@@ -33,6 +35,12 @@ RSpec.describe Product do
     context do
       let(:id) { 3 }
 
+      it { should eq candy }
+    end
+
+    context do
+      let(:id) { 99 }
+
       it { expect { subject }.to raise_error ProductNotFoundError }
     end
   end
@@ -55,5 +63,11 @@ RSpec.describe Product do
 
       it { should eq 'id' => 1, 'name' => 'Beer', 'price' => 175, 'quantity' => 0 }
     end
+  end
+
+  describe '.available' do
+    subject { described_class.available }
+
+    it { should eq [beer, chips] }
   end
 end

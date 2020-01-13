@@ -7,9 +7,12 @@ require_relative '../config/application'
 
 prompt = TTY::Prompt.new
 
+pastel = Pastel.new
+
+# rubocop:disable Metrics/BlockLength
 loop do
   id = prompt.select 'Select your Product' do |menu|
-    Product.all.each do |product|
+    Product.available.each do |product|
       menu.choice product['name'], product['id']
     end
   end
@@ -20,21 +23,49 @@ loop do
 
   coins = 0
 
+  koins = Hash.new(0)
+
   while coins < price
-    value = prompt.select "Please insert #{ price - coins } coins" do |menu|
+    koin = prompt.select "Please insert #{ price - coins } coins" do |menu|
       Coin.all.keys.each do |coin|
         menu.choice coin, coin
       end
     end
 
-    coins += value
+    koins[koin] += 1
+
+    coins += koin
   end
 
-  puts "Price: #{ price }"
+  Product.pop id
 
-  puts "Coins: #{ coins }"
+  print "\n"
+  puts pastel.bold.black 'DEBUG:'
+  puts pastel.bold '------'
+  puts "Price: #{ pastel.bold price }"
+  puts "Coins: #{ pastel.bold coins }"
 
-  puts "Change: #{ ChangeService.calculate coins - price }"
+  begin
+    puts pastel.bold 'Change:'
+    puts ChangeService.calculate coins - price
+
+    koins.each do |coin, quantity|
+      quantity.times { Coin.push coin }
+    end
+  rescue InsufficientCoinsError
+    Product.push id
+
+    puts pastel.bold.red "Sorry, but we don't have sufficient coins to change."
+  end
+
+  puts pastel.bold 'Products in the storage:'
+  puts Product.all
+  puts pastel.bold 'Coins in the storage:'
+  puts Coin.all
+  puts pastel.bold 'Koins:'
+  puts koins
+  puts pastel.bold '------'
 
   break if prompt.no? 'Do you want to continue?'
 end
+# rubocop:enable Metrics/BlockLength

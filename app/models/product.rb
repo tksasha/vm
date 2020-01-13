@@ -15,5 +15,9 @@ class Product < ApplicationModel
 
       product['quantity'] -= 1
     end
+
+    def available
+      all.select { |product| product['quantity'].positive? }
+    end
   end
 end
