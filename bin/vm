@@ -21,11 +21,11 @@ loop do
   inserted_coins = Hash.new(0)
 
   while total_inserted_coins < price
-    koin = InsertCoinsMenu.render(price, total_inserted_coins)
+    coin = InsertCoinsMenu.render(price, total_inserted_coins)
 
-    inserted_coins[koin] += 1
+    inserted_coins[coin] += 1
 
-    total_inserted_coins += koin
+    total_inserted_coins += coin
   end
 
   Product.pop id
@@ -35,9 +35,7 @@ loop do
     puts pastel.bold 'Change:'
     puts ChangeService.calculate total_inserted_coins - price
 
-    inserted_coins.each do |coin, quantity|
-      quantity.times { Coin.push coin }
-    end
+    PutCoinsToTheStorageService.execute inserted_coins
   rescue InsufficientCoinsError
     Product.push id
 
