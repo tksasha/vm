@@ -11,11 +11,7 @@ pastel = Pastel.new
 
 # rubocop:disable Metrics/BlockLength
 loop do
-  id = prompt.select 'Select your Product' do |menu|
-    Product.available.each do |product|
-      menu.choice product['name'], product['id']
-    end
-  end
+  id = SelectProductMenu.render
 
   product = Product.find id
 
@@ -26,11 +22,7 @@ loop do
   koins = Hash.new(0)
 
   while coins < price
-    koin = prompt.select "Please insert #{ price - coins } coins" do |menu|
-      Coin.all.keys.each do |coin|
-        menu.choice coin, coin
-      end
-    end
+    koin = InsertCoinsMenu.render(price, coins)
 
     koins[koin] += 1
 
