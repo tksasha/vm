@@ -23,3 +23,6 @@ rake
 
 # Usage
 - `bin/vm`
+
+# TODO
+- need more QA tests
