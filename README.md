@@ -1,3 +1,6 @@
+# Requirements
+- `ruby 2.7.0p0`
+
 # Instalation
 - `git clone git@github.com:tksasha/vm.git`
 - `bundle install`
